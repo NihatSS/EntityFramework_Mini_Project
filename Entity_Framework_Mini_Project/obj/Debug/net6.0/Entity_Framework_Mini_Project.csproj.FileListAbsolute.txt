@@ -63,3 +63,4 @@ C:\Users\user\OneDrive\Desktop\pb102_tasks\Mini Projects\Entity_Framework_Mini_P
 C:\Users\user\OneDrive\Desktop\pb102_tasks\Mini Projects\Entity_Framework_Mini_Project\Entity_Framework_Mini_Project\obj\Debug\net6.0\Entity_Framework_Mini_Project.pdb
 C:\Users\user\OneDrive\Desktop\pb102_tasks\Mini Projects\Entity_Framework_Mini_Project\Entity_Framework_Mini_Project\obj\Debug\net6.0\Entity_Framework_Mini_Project.genruntimeconfig.cache
 C:\Users\user\OneDrive\Desktop\pb102_tasks\Mini Projects\Entity_Framework_Mini_Project\Entity_Framework_Mini_Project\obj\Debug\net6.0\ref\Entity_Framework_Mini_Project.dll
+C:\Users\user\OneDrive\Desktop\pb102_tasks\Mini Projects\Entity_Framework_Mini_Project\Entity_Framework_Mini_Project\obj\Debug\net6.0\Entity_Framework_Mini_Project.sourcelink.json

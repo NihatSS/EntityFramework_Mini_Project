@@ -9,5 +9,6 @@ namespace Service.Services.Interfaces
 {
     public interface IUserService : IBaseService<UserEntity>
     {
+        Task Check(string userName, string password);
     }
 }
