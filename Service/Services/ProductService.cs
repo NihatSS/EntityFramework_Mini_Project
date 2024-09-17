@@ -5,13 +5,28 @@ using Service.Services.Interfaces;
 
 namespace Service.Services
 {
-    public class ProductService : BaseService<ProductEntity>, IProductService
+    public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
         public ProductService()
         {
             _repository = new ProductRepository();
         }
+
+        public async Task CreateAsync(ProductEntity entity)
+        {
+            await _repository.CreateAsync(entity);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
+        public async Task UpdateAsync(int id, ProductEntity entity)
+        {
+            await _repository.UpdateAsync(id, entity);
+        }
+
         public async Task<IEnumerable<ProductEntity>> FilterByCategoryName(string categoryName)
         {
             return await _repository.FilterByCategoryNameAsync(categoryName);
@@ -51,5 +66,6 @@ namespace Service.Services
         {
             return await _repository.SortWithPriceAsync();
         }
+
     }
 }

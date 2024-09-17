@@ -17,6 +17,7 @@ namespace Repository.Repositories
         public async Task Check(string username, string password)
         {
             await _users.FindAsync(username, password);
+            await _context.SaveChangesAsync();
         }
     }
 }
