@@ -8,58 +8,55 @@ namespace Service.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository _service;
+        private readonly ICategoryRepository _repository;
 
         public CategoryService()
         {
-            _service = new CategoryRepository();
+            _repository = new CategoryRepository();
         }
 
-        public async Task<IEnumerable<CategoryEntitty>> GetAll()
+        public async Task<IEnumerable<CategoryEntitty>> GetAllAsync()
         {
-            return await _service.GetAll();
+            return await _repository.GetAllAsync();
         }
 
 
         public async Task CreateAsync(CategoryEntitty entitty)
         {
-            await _service.CreateAsync(entitty);
+            await _repository.CreateAsync(entitty);
         }
 
         public async Task<CategoryEntitty> GetByIdAsync(int id)
         {
-            return await _service.GetByIdAsync(id);
+            var data = _repository.GetByIdAsync(id);
+            return await data;
         }
 
         public async Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText)
         {
-            return await _service.SearchAsync(searchText);
+            return await _repository.SearchAsync(searchText);
         }
 
 
         public async Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync()
         {
-            return await _service.GetAllWithProductsAsync();
+            return await _repository.GetAllWithProductsAsync();
         }
 
         public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync()
         {
-            return await _service.SortWithCreatedDateAsync();
+            return await _repository.SortWithCreatedDateAsync();
         }
 
-        public async Task<IEnumerable<CategoryEntitty>> GetArchiveCategoriesAsync()
-        {
-            return await _service.GetArchiveCategoriesAsync();
-        }
 
         public async Task DeleteAsync(int id)
         {
-            await _service.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
         }
 
         public async Task UpdateAsync(int id, CategoryEntitty entity)
         {
-            await _service.UpdateAsync(id, entity);
+            await _repository.UpdateAsync(id, entity);
         }
     }
 }

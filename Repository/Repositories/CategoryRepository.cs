@@ -14,15 +14,7 @@ namespace Repository.Repositories
             _context = new();
             _categories = _context.Set<CategoryEntitty>();
         }
-        public async Task<IEnumerable<CategoryEntitty>> GetAll()
-        {
-            return await _categories.ToListAsync();
-        }
 
-        public async Task<CategoryEntitty> GetByIdAsync(int id)
-        {
-            return await _categories.FirstOrDefaultAsync(m => m.Id == id);
-        }
 
         public async Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText)
         {

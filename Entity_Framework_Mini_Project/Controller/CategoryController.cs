@@ -26,24 +26,44 @@ namespace Entity_Framework_Mini_Project.Controller
             }
 
             _repository.CreateAsync(new CategoryEntitty { Name = categoryName });
+            ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
+        }
+
+        public async Task Delete()
+        {
+            Console.WriteLine("Enter the category id:");
+            Id: string categoryId = Console.ReadLine();
+            bool isCorrectFormat = int.TryParse(categoryId, out int id);
+            if (isCorrectFormat)
+            {
+                await _repository.DeleteAsync(id);
+                ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
+            }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Id;
+            }
         }
 
         public async Task GetAll()
         {
-            foreach (var category in await _repository.GetAll())
+            var categories = await _repository.GetAllAsync();
+            foreach (var category in categories)
             {
-                Console.WriteLine($"Name: {category.Name}");
+                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}\n");
             }
         }
 
-        public async Task<CategoryEntitty> GetById()
+        public async Task GetById()
         {
             Console.WriteLine("Enter category id:");
             Id: string strId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(strId, out int id);
             if (isCorrectFormat)
             {
-                return await _repository.GetByIdAsync(id);
+                var category = await _repository.GetByIdAsync(id);
+                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}");
             }
             else
             {
@@ -73,13 +93,20 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task GetAllWithProducts()
         {
-            var categories = await _repository.GetAllWithProductsAsync();
-            foreach (var category in categories)
+            foreach (var category in await _repository.GetAllWithProductsAsync())
             {
-                Console.WriteLine($"Category: {category.Name} \nProducts: {category.Products}");
+                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: {category.Products}");
             }
         }
 
+        public async Task SortWithCreatedDateAsync()
+        {
+            foreach (var category in await _repository.SortWithCreatedDateAsync())
+            {
+                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}");
+            }
+
+        }
 
 
     }

@@ -47,10 +47,12 @@ namespace Entity_Framework_Mini_Project.Menues
                 //    }
 
                 //}
+            } while (false);
 
 
+            categoryController.Delete();
+            categoryController.GetAll();
 
-            } while (true);
         }
     }
 }

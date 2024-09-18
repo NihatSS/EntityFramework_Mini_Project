@@ -10,9 +10,11 @@ namespace Repository.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly AppDbContext _context;
+        private readonly DbSet<T> _dbSet;
         public BaseRepository()
         {
             _context = new();
+            _dbSet = _context.Set<T>();
         }
 
 
@@ -24,20 +26,21 @@ namespace Repository.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var response = await _context.Set<T>().FirstOrDefaultAsync(m => m.Id == id);
+            var response = _dbSet.FirstOrDefault(m => m.Id == id);
+
             _context.Set<T>().Remove(response);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            var datas = await _context.Set<T>().ToListAsync();
+            var datas =  _context.Set<T>().ToList();
             return datas;
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(m => m.Id == id);
+            return _context.Set<T>().Find(id);
         }
 
         public async Task UpdateAsync(int id,T entity)

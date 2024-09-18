@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository.Repositories.Interfaces;
-using System.Drawing;
 
 namespace Repository.Repositories
 {
