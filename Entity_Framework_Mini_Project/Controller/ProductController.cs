@@ -20,10 +20,12 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             foreach (var product in await _service.GetAll())
             {
-                 Console.WriteLine($"Name: {product.Name} Count: {product.Count} Price: {product.Price} Color: {product.Color}\n--------------------------------------------------");
+                 Console.WriteLine($"Name: {product.Name} Count: {product.Count} Price: {product.Price} Color: {product.Color} Description: {product.Description}\n--------------------------------------------------");
             }
         }
 
+
+        //Heleki islemir
         public async Task Create()
         {
             Console.WriteLine("Enter the product name:");
@@ -58,9 +60,9 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Color;
             }
-            foreach (var item in color)
+            for(int i = 0; i < color.Length; i++)
             {
-                if (item != Convert.ToInt32(item))
+                if (int.TryParse(color[i].ToString(),out int n))
                 {
                     ConsoleColor.Red.WriteConsole(ErrorMessages.WrongColorInpuWithNumber);
                     goto Color;
@@ -79,7 +81,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 goto CategoryId;
             }
 
-            _service.CreateAsync(new ProductEntity { Name = productName, Count = count, Description = description , Price = price , Color = color, CategoryId = categoryId });
+            await _service.CreateAsync(new ProductEntity { Name = productName, Count = count, Description = description , Price = price , Color = color, CategoryId = categoryId });
             ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullCreatedData);
         }
     }

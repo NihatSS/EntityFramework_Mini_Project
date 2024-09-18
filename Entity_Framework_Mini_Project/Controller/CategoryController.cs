@@ -29,6 +29,8 @@ namespace Entity_Framework_Mini_Project.Controller
             ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
         }
 
+
+        //Heleki islemir 
         public async Task Delete()
         {
             Console.WriteLine("Enter the category id:");
@@ -73,6 +75,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         }
 
+
         public async Task Search()
         {
             Console.WriteLine("Enter the text: ");
@@ -86,7 +89,7 @@ namespace Entity_Framework_Mini_Project.Controller
             var categories = await _repository.SearchAsync(searchText);
             foreach (var category in categories)
             {
-                Console.WriteLine($"Name: {category.Name}");
+                ConsoleColor.Cyan.WriteConsole($"Name: {category.Name}");
             }
         }
         
@@ -101,7 +104,8 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task SortWithCreatedDateAsync()
         {
-            foreach (var category in await _repository.SortWithCreatedDateAsync())
+            var catedories = await _repository.SortWithCreatedDateAsync();
+            foreach (var category in catedories)
             {
                 ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}");
             }

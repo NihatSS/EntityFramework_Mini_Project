@@ -18,7 +18,8 @@ namespace Repository.Repositories
 
         public async Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText)
         {
-            return await _categories.Where(m => m.Name == searchText).ToListAsync();
+            var data = _categories.Where(m => m.Name.Contains(searchText)).ToList();
+            return data;
         }
 
         public async Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync()
@@ -35,7 +36,7 @@ namespace Repository.Repositories
 
         public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync()
         {
-            return await _categories.OrderBy(m => m.CreatedDate).ToListAsync();
+            return  _categories.OrderBy(m => m.CreatedDate).ToList();
         }
     }
 }
