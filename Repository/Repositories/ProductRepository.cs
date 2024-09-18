@@ -21,19 +21,10 @@ namespace Repository.Repositories
             return await _products.Include(m => m.Category).Where(m => m.Category.Name == categoryName).ToListAsync();
         }
 
-        public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-        {
-            return await _products.ToListAsync();
-        }
 
         public async Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync()
         {
             return await _products.Include(m => m.Category).ToListAsync();
-        }
-
-        public async Task<ProductEntity> GetByIdAsync(int id)
-        {
-            return await _products.FindAsync(id);
         }
 
         public async Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color)

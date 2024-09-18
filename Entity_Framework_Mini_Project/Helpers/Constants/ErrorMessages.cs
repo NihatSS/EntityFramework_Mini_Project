@@ -4,5 +4,6 @@
     {
         public const string WrongInput = "Invalid input! Please try again:";
         public const string WeakPassword = "Your password is so weak please enter again!";
+        public const string WrongColorInpuWithNumber = "Color can't contains number";
     }
 }

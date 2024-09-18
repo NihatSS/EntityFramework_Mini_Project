@@ -1,10 +1,11 @@
-﻿using Domain.Common;
-using Domain.Entities;
+﻿using Domain.Entities;
 
-namespace Repository.Repositories.Interfaces
+namespace Service.Services.Interfaces
 {
-    public interface ICategoryRepository : IBaseRepository<CategoryEntitty>
+    public interface ICategoryService : IBaseService<CategoryEntitty>
     {
+        Task<IEnumerable<CategoryEntitty>> GetAll();
+        Task<CategoryEntitty> GetByIdAsync(int id);
         Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText);
         Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync();
         Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync();

@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository.Repositories.Interfaces;
@@ -28,6 +29,16 @@ namespace Repository.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<T>> GetAll()
+        {
+            var datas = await _context.Set<T>().ToListAsync();
+            return datas;
+        }
+
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(m => m.Id == id);
+        }
 
         public async Task UpdateAsync(int id,T entity)
         {

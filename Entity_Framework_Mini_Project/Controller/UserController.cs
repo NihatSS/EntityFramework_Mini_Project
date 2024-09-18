@@ -55,10 +55,10 @@ namespace Entity_Framework_Mini_Project.Controller
 
             for (int i = 0; i < password.Length; i++)
             {
-                if (Convert.ToInt32(password[i]) != null && password[i].ToString() != password[i].ToString().ToLower() && password.Length < 8)
+                if (Convert.ToInt32(password[i]) != null && password[i].ToString() != password[i].ToString().ToLower() && password.Length > 8)
                 {
                     _userService.CreateAsync(new UserEntity { FullName = fullName, UserName = userName, Password = password, Email = email });
-                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
+                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullRegister);
                     break;
                 }
                 else
@@ -90,6 +90,7 @@ namespace Entity_Framework_Mini_Project.Controller
             }
 
             await _userService.Check(userName, password);
+            ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccesfullLogin);
         }
 
 

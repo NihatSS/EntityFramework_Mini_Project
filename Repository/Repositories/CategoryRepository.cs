@@ -19,6 +19,16 @@ namespace Repository.Repositories
             return await _categories.ToListAsync();
         }
 
+        public async Task<CategoryEntitty> GetByIdAsync(int id)
+        {
+            return await _categories.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText)
+        {
+            return await _categories.Where(m => m.Name == searchText).ToListAsync();
+        }
+
         public async Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync()
         {
             return await _categories.Include(m => m.Products).ToListAsync();
@@ -29,15 +39,7 @@ namespace Repository.Repositories
             return await _categories.ToListAsync();
         }
 
-        public async Task<CategoryEntitty> GetByIdAsync(int id)
-        {
-            return await _categories.FirstOrDefaultAsync(m => m.Id == id);
-        }
 
-        public async Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText)
-        {
-            return await _categories.Where(m => m.Name == searchText).ToListAsync();
-        }
 
         public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync()
         {
