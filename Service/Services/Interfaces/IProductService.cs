@@ -4,13 +4,13 @@ namespace Service.Services.Interfaces
 {
     public interface IProductService : IBaseService<ProductEntity>
     {
-        Task<IEnumerable<ProductEntity>> GetAll();
-        Task<ProductEntity> GetById(int id);
-        Task<IEnumerable<ProductEntity>> SearchByName(string name);
-        Task<IEnumerable<ProductEntity>> FilterByCategoryName(string categoryName);
-        Task<IEnumerable<ProductEntity>> GetAllWithCategoryId();
-        Task<IEnumerable<ProductEntity>> SortWithPrice();
-        Task<IEnumerable<ProductEntity>> SortByCreatedDate();
-        Task<IEnumerable<ProductEntity>> SearchByColor(string color);
+        Task<IEnumerable<ProductEntity>> GetAllAsync();
+        Task<ProductEntity> GetByIdAsync(int id);
+        Task<IEnumerable<ProductEntity>> SearchByNameAsync(string name);
+        Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName);
+        Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync();
+        Task<IEnumerable<ProductEntity>> SortWithPriceAsync();
+        Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync();
+        Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color);
     }
 }

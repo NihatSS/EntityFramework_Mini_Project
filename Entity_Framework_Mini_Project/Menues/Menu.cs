@@ -52,7 +52,7 @@ namespace Entity_Framework_Mini_Project.Menues
 
             } while (false);
 
-            productController.Create();
+           
 
         }
     }

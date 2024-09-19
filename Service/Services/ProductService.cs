@@ -17,6 +17,10 @@ namespace Service.Services
         {
             await _repository.CreateAsync(entity);
         }
+        public async Task<IEnumerable<ProductEntity>> GetAll()
+        {
+            return await _repository.GetAllAsync();
+        }
 
         public async Task DeleteAsync(int id)
         {
@@ -27,42 +31,38 @@ namespace Service.Services
             await _repository.UpdateAsync(id, entity);
         }
 
-        public async Task<IEnumerable<ProductEntity>> FilterByCategoryName(string categoryName)
+        public async Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName)
         {
             return await _repository.FilterByCategoryNameAsync(categoryName);
         }
 
-        public async Task<IEnumerable<ProductEntity>> GetAll()
-        {
-            return await _repository.GetAllAsync();
-        }
 
-        public async Task<IEnumerable<ProductEntity>> GetAllWithCategoryId()
+        public async Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync()
         {
             return await _repository.GetAllWithCategoryIdAsync();
         }
 
-        public async Task<ProductEntity> GetById(int id)
+        public async Task<ProductEntity> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<ProductEntity>> SearchByColor(string color)
+        public async Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color)
         {
             return await _repository.SearchByColorAsync(color);
         }
 
-        public async Task<IEnumerable<ProductEntity>> SearchByName(string name)
+        public async Task<IEnumerable<ProductEntity>> SearchByNameAsync(string name)
         {
             return await _repository.SearchByNameAsync(name);
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortByCreatedDate()
+        public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync()
         {
             return await _repository.SortByCreatedDateAsync();
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortWithPrice()
+        public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync()
         {
             return await _repository.SortWithPriceAsync();
         }
