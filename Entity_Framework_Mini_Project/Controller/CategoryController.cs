@@ -4,7 +4,6 @@ using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Service.Services;
 using Service.Services.Interfaces;
-using System.Globalization;
 
 namespace Entity_Framework_Mini_Project.Controller
 {
@@ -88,6 +87,7 @@ namespace Entity_Framework_Mini_Project.Controller
             }
 
             var categories = await _service.SearchAsync(searchText);
+
             foreach (var category in categories)
             {
                 ConsoleColor.Cyan.WriteConsole($"Name: {category.Name}");

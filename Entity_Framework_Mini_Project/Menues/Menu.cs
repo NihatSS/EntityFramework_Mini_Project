@@ -16,7 +16,7 @@ namespace Entity_Framework_Mini_Project.Menues
                 //bool isTrueAuthenticationFinised = true;
                 //while (isTrueAuthenticationFinised)
                 //{
-                //    ConsoleColor.Yellow.WriteConsole("Enter the operation!\n1-Login\n2-Register\n3-Delete user");
+                //    ConsoleColor.Yellow.WriteConsole("Enter the operation!\n1-Login\n2-Register");
                 //    Authentication: string strNum = Console.ReadLine();
 
                 //    bool isCorrectFormat = int.TryParse(strNum, out int operation);
@@ -32,9 +32,6 @@ namespace Entity_Framework_Mini_Project.Menues
                 //                userController.Register();
                 //                isTrueAuthenticationFinised = false;
                 //                break;
-                //            case 3:
-                //                userController.Delete();
-                //                break;
                 //            default:
                 //                break;
                 //        }
@@ -48,11 +45,13 @@ namespace Entity_Framework_Mini_Project.Menues
 
                 //}
 
-
-
             } while (false);
 
-           
+
+
+
+           categoryController.Search();
+
 
         }
     }

@@ -17,7 +17,7 @@ namespace Service.Services
         {
             await _repository.CreateAsync(entity);
         }
-        public async Task<IEnumerable<ProductEntity>> GetAll()
+        public async Task<IEnumerable<ProductEntity>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
@@ -67,5 +67,6 @@ namespace Service.Services
             return await _repository.SortWithPriceAsync();
         }
 
+       
     }
 }

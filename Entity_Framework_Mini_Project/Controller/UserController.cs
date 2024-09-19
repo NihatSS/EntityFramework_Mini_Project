@@ -94,23 +94,6 @@ namespace Entity_Framework_Mini_Project.Controller
         }
 
 
-        public async Task Delete()
-        {
-            Console.WriteLine("Enter the user's id:");
-            Id: string strNum = Console.ReadLine();
-
-            bool isCorretFormat = int.TryParse(strNum,out int id);
-            if (isCorretFormat)
-            {
-                await _userService.DeleteAsync(id);
-                ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
-            }
-            else
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Id;
-            }
-        }
 
     }
 }

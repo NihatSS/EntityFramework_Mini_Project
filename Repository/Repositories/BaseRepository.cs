@@ -21,7 +21,7 @@ namespace Repository.Repositories
         public async Task CreateAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task DeleteAsync(int id)

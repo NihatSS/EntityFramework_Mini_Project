@@ -4,7 +4,6 @@ using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Service.Services;
 using Service.Services.Interfaces;
-using System.Threading.Channels;
 
 namespace Entity_Framework_Mini_Project.Controller
 {
@@ -146,11 +145,8 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductColor);
             Color: string color = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(color))
-            {
-                var products = _service.GetAllAsync();
-            }
-            else
+            var products = _service.GetAllAsync();
+            if (!string.IsNullOrWhiteSpace(color))
             {
                 for (int i = 0; i < color.Length; i++)
                 {
@@ -160,10 +156,44 @@ namespace Entity_Framework_Mini_Project.Controller
                         goto Color;
                     }
                 }
-                _service.SearchByColorAsync(color);
+                products = _service.SearchByColorAsync(color);
+            }
+            foreach (var product in await products)
+            {
+                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
             }
         }
 
-       
+       public async Task SearchByName()
+        {
+            ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
+            string name = Console.ReadLine();
+            var products = _service.GetAllAsync();
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                products = _service.SearchByNameAsync(name);
+            }
+            foreach (var product in await products)
+            {
+                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+            }
+        }
+
+        public async Task SortByCreateDate()
+        {
+            var products = _service.SortByCreatedDateAsync();
+            foreach (var product in await products)
+            {
+                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+            }
+        }
+        public async Task SortWithPrice()
+        {
+            var products = _service.SortWithPriceAsync();
+            foreach (var product in await products)
+            {
+                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+            }
+        }
     }
 }
