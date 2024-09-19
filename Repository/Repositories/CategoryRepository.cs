@@ -34,9 +34,16 @@ namespace Repository.Repositories
 
 
 
-        public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync()
+        public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync(int operation)
         {
-            return  _categories.OrderBy(m => m.CreatedDate).ToList();
+            if (operation == 1)
+            {
+                return  _categories.OrderBy(m => m.CreatedDate).ToList();
+            }
+            else
+            {
+                return _categories.OrderByDescending(m => m.CreatedDate).ToList();
+            }
         }
     }
 }

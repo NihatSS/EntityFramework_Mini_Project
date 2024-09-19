@@ -8,6 +8,6 @@ namespace Service.Services.Interfaces
         Task<CategoryEntitty> GetByIdAsync(int id);
         Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText);
         Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync();
-        Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync();
+        Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync(int operation);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using Domain.Entities;
+using Entity_Framework_Mini_Project.Helper.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository.Repositories.Interfaces;

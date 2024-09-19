@@ -36,9 +36,16 @@ namespace Repository.Repositories
             return await _products.Where(m => m.Name == name).ToListAsync();
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync()
+        public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync(int operation)
         {
-            return await _products.OrderBy(m => m.CreatedDate).ToListAsync();
+            if (operation == 1)
+            {
+                return await _products.OrderBy(m => m.CreatedDate).ToListAsync();
+            }
+            else
+            {
+                return await _products.OrderByDescending(m => m.CreatedDate).ToListAsync();
+            }
         }
 
         public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync()

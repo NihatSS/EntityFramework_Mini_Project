@@ -43,9 +43,9 @@ namespace Service.Services
             return await _repository.GetAllWithProductsAsync();
         }
 
-        public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync()
+        public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync(int operation)
         {
-            return await _repository.SortWithCreatedDateAsync();
+            return await _repository.SortWithCreatedDateAsync(operation);
         }
 
 

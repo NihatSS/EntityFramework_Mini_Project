@@ -57,9 +57,9 @@ namespace Service.Services
             return await _repository.SearchByNameAsync(name);
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync()
+        public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync(int operation)
         {
-            return await _repository.SortByCreatedDateAsync();
+            return await _repository.SortByCreatedDateAsync(operation);
         }
 
         public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync()

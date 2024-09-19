@@ -181,11 +181,32 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task SortByCreateDate()
         {
-            var products = _service.SortByCreatedDateAsync();
-            foreach (var product in await products)
+            ConsoleColor.Yellow.WriteConsole("1-Order by increasing\n2-Order by decreasing");
+            Operation: string strOperation = Console.ReadLine();
+            bool isCorrectFormat = int.TryParse(strOperation, out var operation);
+            if (isCorrectFormat)
             {
-                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+                if (operation == 1 || operation == 2)
+                {
+                    var products = _service.SortByCreatedDateAsync(operation);
+                    foreach (var product in await products)
+                    {
+                        ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+                    }
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Operation;
+                }
             }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Operation;
+            }
+            
+            
         }
         public async Task SortWithPrice()
         {

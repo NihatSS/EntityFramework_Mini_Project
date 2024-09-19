@@ -23,6 +23,15 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto FullName;
+            }else if (fullName.Any(char.IsDigit))
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto FullName;
+            }
+            else if (!fullName.Any(char.IsLetterOrDigit))
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto FullName;
             }
 
             Console.WriteLine("Enter the username:");
@@ -47,6 +56,10 @@ namespace Entity_Framework_Mini_Project.Controller
             Email: string email = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(email))
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Email;
+            }else if (email.Contains('@'))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Email;

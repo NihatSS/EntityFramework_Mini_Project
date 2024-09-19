@@ -10,7 +10,7 @@ namespace Service.Services.Interfaces
         Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName);
         Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync();
         Task<IEnumerable<ProductEntity>> SortWithPriceAsync();
-        Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync();
+        Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync(int operation);
         Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color);
     }
 }
