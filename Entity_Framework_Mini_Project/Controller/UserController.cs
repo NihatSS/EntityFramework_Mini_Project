@@ -23,12 +23,12 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto FullName;
-            }else if (fullName.Any(char.IsDigit))
+            } if (fullName.Any(char.IsDigit))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto FullName;
             }
-            else if (!fullName.Any(char.IsLetterOrDigit))
+             if (!fullName.Any(char.IsLetterOrDigit))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto FullName;
@@ -46,32 +46,15 @@ namespace Entity_Framework_Mini_Project.Controller
             Console.WriteLine("Enter the password (Mininum 8 caracters, 1 uppercase,1 number):");
             Password: string password = Console.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(password) && password.Length >8 )
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Password;
             }
-
-            Console.WriteLine("Enter the email:");
-            Email: string email = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Email;
-            }else if (email.Contains('@'))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Email;
-            }
-
-
             for (int i = 0; i < password.Length; i++)
             {
-                if (Convert.ToInt32(password[i]) != null && password[i].ToString() != password[i].ToString().ToLower() && password.Length > 8)
+                if (Convert.ToInt32(password[i]) != null && password[i].ToString() != password[i].ToString().ToLower() && password.Length >= 8)
                 {
-                    _userService.CreateAsync(new UserEntity { FullName = fullName, UserName = userName, Password = password, Email = email });
-                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullRegister);
                     break;
                 }
                 else
@@ -80,6 +63,25 @@ namespace Entity_Framework_Mini_Project.Controller
                     goto Password;
                 }
             }
+
+            Console.WriteLine("Enter the email:");
+            Email: string email = Console.ReadLine();
+
+
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Email;
+            }if (!email.Contains('@') || !email.Contains('.'))
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongEmailInput);
+                goto Email;
+            }
+
+            _userService.CreateAsync(new UserEntity { FullName = fullName, UserName = userName, Password = password, Email = email });
+            ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullRegister);
+
         }
 
         public async Task Login()
@@ -105,8 +107,6 @@ namespace Entity_Framework_Mini_Project.Controller
             await _userService.Check(userName, password);
             ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccesfullLogin);
         }
-
-
 
     }
 }

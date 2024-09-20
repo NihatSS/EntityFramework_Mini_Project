@@ -25,7 +25,6 @@ namespace Entity_Framework_Mini_Project.Controller
         }
 
 
-        //Heleki islemir
         public async Task Create()
         {
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
@@ -72,7 +71,7 @@ namespace Entity_Framework_Mini_Project.Controller
             ConsoleColor.Yellow.WriteConsole($"Enter the {productName}'s description:");
             string description = Console.ReadLine();
 
-            Console.WriteLine(AskMessages.AskCategoryId);
+            ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
             CategoryId: string strCategoryId = Console.ReadLine();
             bool isCorrectIdFormat = int.TryParse(strCategoryId, out int categoryId);
             if (isCorrectIdFormat == false)
@@ -210,10 +209,29 @@ namespace Entity_Framework_Mini_Project.Controller
         }
         public async Task SortWithPrice()
         {
-            var products = _service.SortWithPriceAsync();
-            foreach (var product in await products)
+            ConsoleColor.Yellow.WriteConsole("1-Order by increasing\n2-Order by decreasing");
+            Operation: string strOperation = Console.ReadLine();
+            bool isCorrectFormat = int.TryParse(strOperation, out var operation);
+            if (isCorrectFormat)
             {
-                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+                if (operation == 1 || operation == 2)
+                {
+                    var products = _service.SortWithPriceAsync(operation);
+                    foreach (var product in await products)
+                    {
+                        ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
+                    }
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Operation;
+                }
+            }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Operation;
             }
         }
     }

@@ -28,12 +28,12 @@ namespace Repository.Repositories
 
         public async Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color)
         {
-            return await _products.Where(m => m.Color == color).ToListAsync();
+            return await _products.Where(m => m.Color.Contains(color)).ToListAsync();
         }
 
         public async Task<IEnumerable<ProductEntity>> SearchByNameAsync(string name)
         {
-            return await _products.Where(m => m.Name == name).ToListAsync();
+            return await _products.Where(m => m.Name.Contains(name)).ToListAsync();
         }
 
         public async Task<IEnumerable<ProductEntity>> SortByCreatedDateAsync(int operation)
@@ -48,9 +48,16 @@ namespace Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync()
+        public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync(int operation)
         {
-            return await _products.OrderBy(m => m.Price).ToListAsync();
+            if (operation == 1)
+            {
+                return await _products.OrderBy(m => m.CreatedDate).ToListAsync();
+            }
+            else
+            {
+                return await _products.OrderByDescending(m => m.CreatedDate).ToListAsync();
+            }
         }
     }
 }

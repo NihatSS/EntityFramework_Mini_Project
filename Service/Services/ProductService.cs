@@ -62,9 +62,9 @@ namespace Service.Services
             return await _repository.SortByCreatedDateAsync(operation);
         }
 
-        public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync()
+        public async Task<IEnumerable<ProductEntity>> SortWithPriceAsync(int operation)
         {
-            return await _repository.SortWithPriceAsync();
+            return await _repository.SortWithPriceAsync(operation);
         }
 
        

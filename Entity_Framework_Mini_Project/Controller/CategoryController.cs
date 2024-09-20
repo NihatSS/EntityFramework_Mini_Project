@@ -49,23 +49,35 @@ namespace Entity_Framework_Mini_Project.Controller
         }
 
 
-        //Heleki islemir 
         public async Task Delete()
         {
-            Console.WriteLine(AskMessages.AskCategoryId);
-            Id: string categoryId = Console.ReadLine();
+            GetAll();
+            Id: Console.WriteLine(AskMessages.AskCategoryId);
+            string categoryId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(categoryId, out int id);
             if (isCorrectFormat)
             {
-                try
+                ConsoleColor.DarkYellow.WriteConsole(AskMessages.AskPermissionToDelete);
+                Permission: string permission = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(permission))
                 {
-                    await _service.DeleteAsync(id);
-                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
-                }catch (Exception ex)
-                {
-                    ConsoleColor.Red.WriteConsole(ex.Message + ", Please try again:");
-                    goto Id;
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Permission;
                 }
+                switch (permission)
+                {
+                    case "y":
+                        await _service.DeleteAsync(id);
+                       ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
+                        break;
+                    case "n":
+                        ConsoleColor.DarkGreen.WriteConsole("Delete canceled");
+                        break;
+                    default:
+                        ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                        goto Permission;
+                }
+                
             }
             else
             {
@@ -79,7 +91,29 @@ namespace Entity_Framework_Mini_Project.Controller
             var categories = await _service.GetAllAsync();
             foreach (var category in categories)
             {
-                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}\n");
+                ConsoleColor.Cyan.WriteConsole($"{category.Id}. Category: {category.Name}");
+            }
+        }
+
+
+        public async Task Update()
+        {
+            GetAll();
+            ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
+            string strId = Console.ReadLine();
+            bool isCorrectFormat = int.TryParse(strId, out int id);
+            if (isCorrectFormat)
+            {
+                var oldUser = await _service.GetByIdAsync(id);
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryName);
+                Name: string categoryName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(categoryName))
+                {
+                    _service.UpdateAsync(id, new CategoryEntitty { Name = oldUser.Name });
+                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessFullUpdate);
+                }
+                _service.UpdateAsync(id, new CategoryEntitty { Name = categoryName });
+                ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessFullUpdate);
             }
         }
 
@@ -142,7 +176,15 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             foreach (var category in await _service.GetAllWithProductsAsync())
             {
-                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: {category.Products}");
+                if (category.Products == null)
+                {
+                    ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: no product");
+                }
+                else
+                {
+                    ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: {category.Products}");
+                }
+
             }
         }
 

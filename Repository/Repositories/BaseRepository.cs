@@ -47,6 +47,7 @@ namespace Repository.Repositories
         public async Task UpdateAsync(int id,T entity)
         {
             var response = await _context.Set<T>().FindAsync(id);
+            response = entity;
             await _context.SaveChangesAsync();
         }
     }
