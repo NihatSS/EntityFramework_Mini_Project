@@ -17,7 +17,7 @@ namespace Repository.Repositories
 
         public async Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName)
         {
-            return await _products.Include(m => m.Category).Where(m => m.Category.Name == categoryName).ToListAsync();
+            return await _products.Include(m => m.Category).Where(m => m.Category.Name.ToLower().Contains(categoryName)).ToListAsync();
         }
 
 

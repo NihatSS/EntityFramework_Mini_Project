@@ -119,7 +119,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto CategoryName;
             }
-            _service.FilterByCategoryNameAsync(categoryName);
+            _service.FilterByCategoryNameAsync(categoryName.ToLower());
         }
 
         public async Task GetAllWithCategoryId()

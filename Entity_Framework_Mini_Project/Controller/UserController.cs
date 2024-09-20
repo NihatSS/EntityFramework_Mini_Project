@@ -16,6 +16,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Register()
         {
+            var users = await _userService.GetAllAsync();
             FullName: ConsoleColor.Cyan.WriteConsole("Enter the user's fullname:");
             string fullName = Console.ReadLine();
 
@@ -33,6 +34,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto FullName;
             }
+            
 
             ConsoleColor.Cyan.WriteConsole("Enter the username:");
             UserName: string userName  = Console.ReadLine();
@@ -41,6 +43,14 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto UserName;
+            }
+            foreach (var user in users)
+            {
+                if (user.UserName == userName)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.UserAlreadyExist);
+                    goto UserName;
+                }
             }
 
             ConsoleColor.Cyan.WriteConsole("Enter the password (Mininum 8 caracters, 1 uppercase,1 number):");
@@ -86,7 +96,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Login()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter the username:");
+            Begin: ConsoleColor.Cyan.WriteConsole("Enter the username:");
             UserName: string userName = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(userName))
@@ -104,8 +114,25 @@ namespace Entity_Framework_Mini_Project.Controller
                 goto Password;
             }
 
-            await _userService.Check(userName, password);
-            ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccesfullLogin);
+            var users = await _userService.GetAllAsync();
+            bool isUserExist = false;
+            foreach (var user in users)
+            {
+                if (user.UserName == userName && user.Password == password)
+                {
+                    isUserExist = true;
+                }
+            }
+            if (isUserExist)
+            {
+                ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccesfullLogin);
+
+            }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.InvalidLogin);
+                goto Begin;
+            }
         }
 
     }

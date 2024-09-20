@@ -12,10 +12,6 @@ namespace Service.Services
         {
             _userService = new UserRepository();
         }
-        public async Task Check(string userName, string password)
-        {
-            await _userService.Check(userName, password);
-        }
 
         public async Task CreateAsync(UserEntity entity)
         {
@@ -27,9 +23,16 @@ namespace Service.Services
             await _userService.DeleteAsync(id);
         }
 
-        public async Task UpdateAsync(int id, UserEntity entity)
+        public async Task<IEnumerable<UserEntity>> GetAllAsync()
         {
-            await _userService.UpdateAsync(id, entity);
+            return await _userService.GetAllAsync();
         }
+
+        public Task UpdateAsync(int id, UserEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }
