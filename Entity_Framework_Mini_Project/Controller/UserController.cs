@@ -16,7 +16,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Register()
         {
-            FullName: Console.WriteLine("Enter the user's fullname:");
+            FullName: ConsoleColor.Cyan.WriteConsole("Enter the user's fullname:");
             string fullName = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(fullName))
@@ -34,7 +34,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 goto FullName;
             }
 
-            Console.WriteLine("Enter the username:");
+            ConsoleColor.Cyan.WriteConsole("Enter the username:");
             UserName: string userName  = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(userName))
@@ -43,7 +43,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 goto UserName;
             }
 
-            Console.WriteLine("Enter the password (Mininum 8 caracters, 1 uppercase,1 number):");
+            ConsoleColor.Cyan.WriteConsole("Enter the password (Mininum 8 caracters, 1 uppercase,1 number):");
             Password: string password = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(password) && password.Length >8 )
@@ -64,7 +64,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 }
             }
 
-            Console.WriteLine("Enter the email:");
+            ConsoleColor.Cyan.WriteConsole("Enter the email:");
             Email: string email = Console.ReadLine();
 
 
@@ -86,7 +86,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Login()
         {
-            Console.WriteLine("Enter the username:");
+            ConsoleColor.Cyan.WriteConsole("Enter the username:");
             UserName: string userName = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(userName))
@@ -95,7 +95,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 goto UserName;
             }
 
-            Console.WriteLine("Enter the password (Mininum 1 uppercase,1 number):");
+            ConsoleColor.Cyan.WriteConsole("Enter the password (Mininum 1 uppercase,1 number):");
             Password: string password = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(password))

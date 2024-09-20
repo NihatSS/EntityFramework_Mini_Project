@@ -27,14 +27,22 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Create()
         {
+            var products = await _service.GetAllAsync();
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
-            ProductName: string productName = Console.ReadLine();
+            ProductName: string productName = Console.ReadLine().Trim();
             if (string.IsNullOrWhiteSpace(productName))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto ProductName;
             }
-
+            foreach (var product in products)
+            {
+                if (product.Name.ToLower().Trim() == productName.ToLower())
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.ProductAlreadyExist);
+                    goto ProductName;
+                }
+            }
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductPrice);
             Price: string strPrice = Console.ReadLine();
             bool isCorrectPriceFormat = decimal.TryParse(strPrice, out decimal price);

@@ -3,6 +3,8 @@ using Entity_Framework_Mini_Project.Helper.Constants;
 using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Entity_Framework_Mini_Project.Helpers.Operations;
+
+
 namespace Entity_Framework_Mini_Project.Menues
     {
         public class Menu
@@ -149,9 +151,14 @@ namespace Entity_Framework_Mini_Project.Menues
 
                         } while (true);
                     
+                    }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Methods;
                 }
 
-                } while (true);
+            } while (true);
 
 
             }

@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|c:\\users\\user\\onedrive\\desktop\\pb102_tasks\\mini projects\\entity_framework_mini_project\\entity_framework_mini_project\\controller\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|solutionrelative:entity_framework_mini_project\\controller\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|c:\\users\\user\\onedrive\\desktop\\pb102_tasks\\mini projects\\entity_framework_mini_project\\entity_framework_mini_project\\controller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|solutionrelative:entity_framework_mini_project\\controller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|c:\\users\\user\\onedrive\\desktop\\pb102_tasks\\mini projects\\entity_framework_mini_project\\entity_framework_mini_project\\controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|solutionrelative:entity_framework_mini_project\\controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|c:\\users\\user\\onedrive\\desktop\\pb102_tasks\\mini projects\\entity_framework_mini_project\\entity_framework_mini_project\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AF8C389E-E455-46DC-91FA-001106507FD0}|Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project.csproj|solutionrelative:entity_framework_mini_project\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -14,21 +26,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 198,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\ProductController.cs",
+              "RelativeDocumentMoniker": "Entity_Framework_Mini_Project\\Controller\\ProductController.cs",
+              "ToolTip": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\ProductController.cs",
+              "RelativeToolTip": "Entity_Framework_Mini_Project\\Controller\\ProductController.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAowCcAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-20T08:38:25.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\UserController.cs",
+              "RelativeDocumentMoniker": "Entity_Framework_Mini_Project\\Controller\\UserController.cs",
+              "ToolTip": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\UserController.cs",
+              "RelativeToolTip": "Entity_Framework_Mini_Project\\Controller\\UserController.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAIwGEAAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-20T08:13:28.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\CategoryController.cs",
+              "RelativeDocumentMoniker": "Entity_Framework_Mini_Project\\Controller\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Controller\\CategoryController.cs",
+              "RelativeToolTip": "Entity_Framework_Mini_Project\\Controller\\CategoryController.cs",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAQwA8AAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-20T08:09:42.806Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Menu.cs",
               "DocumentMoniker": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Menu.cs",
               "RelativeDocumentMoniker": "Entity_Framework_Mini_Project\\Menu.cs",
               "ToolTip": "C:\\Users\\user\\OneDrive\\Desktop\\pb102_tasks\\Mini Projects\\Entity_Framework_Mini_Project\\Entity_Framework_Mini_Project\\Menu.cs",
               "RelativeToolTip": "Entity_Framework_Mini_Project\\Menu.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA3AAAA",
+              "ViewState": "AQIAAIUAAAAAAAAAAAAYwJwAAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T07:21:08.208Z",
               "EditorCaption": ""

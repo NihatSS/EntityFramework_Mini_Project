@@ -36,9 +36,9 @@ namespace Entity_Framework_Mini_Project.Controller
             var categories = _service.GetAllAsync();
             foreach (var category in await categories)
             {
-                if (category.Name.ToLower() == categoryName.ToLower()) 
+                if (category.Name.ToLower().Trim() == categoryName.ToLower()) 
                 {
-                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.CategoryAlreadyExist);
                     goto CategoryName;
                 }
             }
@@ -176,15 +176,11 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             foreach (var category in await _service.GetAllWithProductsAsync())
             {
-                if (category.Products == null)
+                ConsoleColor.Cyan.WriteConsole($"{category.Id}. Category: {category.Name}\nProducts:\n---------------------------------------");
+                foreach (var product in category.Products)
                 {
-                    ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: no product");
+                    ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} | Price: {product.Price}  | Count: {product.Count} | Color: {product.Color}\n----------------------------------------------------------");
                 }
-                else
-                {
-                    ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} \nProducts: {category.Products}");
-                }
-
             }
         }
 
