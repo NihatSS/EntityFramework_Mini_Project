@@ -58,5 +58,10 @@ namespace Service.Services
         {
             await _repository.UpdateAsync(id, entity);
         }
+
+        public async Task<IEnumerable<ArchiveCategoryEntity>> GetArchiveCategoriesAsync()
+        {
+            return await _repository.GetArchiveCategoriesAsync();
+        }
     }
 }

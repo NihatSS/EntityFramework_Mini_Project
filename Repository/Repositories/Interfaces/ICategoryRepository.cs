@@ -8,5 +8,6 @@ namespace Repository.Repositories.Interfaces
         Task<IEnumerable<CategoryEntitty>> SearchAsync(string searchText);
         Task<IEnumerable<CategoryEntitty>> GetAllWithProductsAsync();
         Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync(int operation);
+        Task<IEnumerable<ArchiveCategoryEntity>> GetArchiveCategoriesAsync();
     }
 }

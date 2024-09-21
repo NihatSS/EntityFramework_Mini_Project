@@ -138,7 +138,8 @@ namespace Entity_Framework_Mini_Project.Controller
             bool idCorrectFormat = int.TryParse(strId,out int id);
             if (idCorrectFormat)
             {
-                _service.GetByIdAsync(id);
+                var product = await _service.GetByIdAsync(id);
+                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description}");
             }
             else
             {

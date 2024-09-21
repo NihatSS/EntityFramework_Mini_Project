@@ -28,8 +28,7 @@ namespace Repository.Repositories
         public async Task DeleteAsync(int id)
         {
             var response = _dbSet.FirstOrDefault(m => m.Id == id);
-
-            _context.Set<T>().Remove(response);
+            _dbSet.Remove(response);
             _context.SaveChanges();
         }
 

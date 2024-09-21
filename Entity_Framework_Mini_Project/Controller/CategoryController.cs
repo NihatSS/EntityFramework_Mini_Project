@@ -4,7 +4,6 @@ using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Service.Services;
 using Service.Services.Interfaces;
-using System.Globalization;
 
 namespace Entity_Framework_Mini_Project.Controller
 {
@@ -20,15 +19,7 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             Console.WriteLine(AskMessages.AskCategoryName);
             CategoryName: string categoryName = Console.ReadLine().Trim();
-            if (string.IsNullOrWhiteSpace(categoryName))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto CategoryName;
-            }else if (categoryName.Any(char.IsDigit))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto CategoryName;
-            }else if (!categoryName.Any(char.IsLetterOrDigit))
+            if (string.IsNullOrWhiteSpace(categoryName) || categoryName.Any(char.IsDigit) || !categoryName.Any(char.IsLetterOrDigit))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto CategoryName;
@@ -51,7 +42,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Delete()
         {
-            GetAll();
+            //GetAll();
             Id: Console.WriteLine(AskMessages.AskCategoryId);
             string categoryId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(categoryId, out int id);
@@ -67,7 +58,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 switch (permission)
                 {
                     case "y":
-                        await _service.DeleteAsync(id);
+                       _service.DeleteAsync(id);
                        ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
                         break;
                     case "n":
@@ -99,6 +90,7 @@ namespace Entity_Framework_Mini_Project.Controller
         public async Task Update()
         {
             GetAll();
+            var categories = await _service.GetAllAsync();
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
             string strId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(strId, out int id);
@@ -106,12 +98,26 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 var oldUser = await _service.GetByIdAsync(id);
                 ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryName);
-                Name: string categoryName = Console.ReadLine();
+                Name: string categoryName = Console.ReadLine().Trim();
+
+                bool isCategoryExist = true;
+                foreach (var category in categories)
+                {
+                    if (category.Name != categoryName)
+                    {
+                        isCategoryExist = false;
+                    }
+                }
+                if (isCategoryExist)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.CategoryAlreadyExist);
+                    goto Name;
+                }
                 if (string.IsNullOrWhiteSpace(categoryName))
                 {
-                    _service.UpdateAsync(id, new CategoryEntitty { Name = oldUser.Name });
-                    ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessFullUpdate);
+                    categoryName = oldUser.Name;
                 }
+                
                 _service.UpdateAsync(id, new CategoryEntitty { Name = categoryName });
                 ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessFullUpdate);
             }
@@ -147,17 +153,7 @@ namespace Entity_Framework_Mini_Project.Controller
         {
             Console.WriteLine("Enter the text: ");
             Search: string searchText = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(searchText))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Search;
-            }
-            else if (searchText.Any(char.IsDigit))
-            {
-                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Search;
-            }
-            else if (!searchText.Any(char.IsLetter))
+            if (string.IsNullOrWhiteSpace(searchText) || !searchText.Any(char.IsLetter) || searchText.Any(char.IsDigit))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Search;
@@ -209,6 +205,15 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Operation;
+            }
+        }
+
+        public async Task GetArchiveCategories()
+        {
+            var categories = await _service.GetArchiveCategoriesAsync();
+            foreach (var category in categories)
+            {
+                ConsoleColor.Cyan.WriteConsole($"{category.Id}. Category: {category.Name}");
             }
         }
     }

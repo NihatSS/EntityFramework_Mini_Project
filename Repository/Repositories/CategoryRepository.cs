@@ -27,12 +27,12 @@ namespace Repository.Repositories
             return await _categories.Include(m => m.Products).ToListAsync();
         }
 
-        public async Task<IEnumerable<CategoryEntitty>> GetArchiveCategoriesAsync()
+
+        public async Task<IEnumerable<ArchiveCategoryEntity>> GetArchiveCategoriesAsync()
         {
-            return await _categories.ToListAsync();
+            var datas = _context.Set<ArchiveCategoryEntity>().ToList();
+            return datas;
         }
-
-
 
         public async Task<IEnumerable<CategoryEntitty>> SortWithCreatedDateAsync(int operation)
         {
@@ -45,5 +45,7 @@ namespace Repository.Repositories
                 return _categories.OrderByDescending(m => m.CreatedDate).ToList();
             }
         }
+
+
     }
 }

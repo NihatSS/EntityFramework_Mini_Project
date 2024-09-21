@@ -10,6 +10,7 @@
         Search,
         GetAllWithProducts,
         SortWithCreatedDate,
+        GetArchiveCategory,
         Back
     }
 }
