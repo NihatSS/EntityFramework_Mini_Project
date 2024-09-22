@@ -43,6 +43,15 @@ namespace Entity_Framework_Mini_Project.Controller
                     goto ProductName;
                 }
             }
+            for (int i = 1; i < productName.Length; i++)
+            {
+                if (productName[i].ToString() != productName[i].ToString().ToLower())
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto ProductName;
+                }
+            }
+
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductPrice);
             Price: string strPrice = Console.ReadLine();
             bool isCorrectPriceFormat = decimal.TryParse(strPrice, out decimal price);
@@ -248,6 +257,49 @@ namespace Entity_Framework_Mini_Project.Controller
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Operation;
+            }
+        }
+
+        public async Task Update()
+        {
+            ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductId);
+            string strId = Console.ReadLine();
+            bool isCorrectIdFormat = int.TryParse(strId, out int id);
+            if (isCorrectIdFormat)
+            {
+                var oldProduct = await _service.GetByIdAsync(id);
+
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
+                string productName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(productName))
+                {
+                    productName = oldProduct.Name;
+                }
+
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductPrice);
+                string strPrice = Console.ReadLine();
+                bool isCorrectPriceFormat = decimal.TryParse(strPrice, out decimal price);
+                if (isCorrectPriceFormat == false || string.IsNullOrWhiteSpace(strPrice))
+                {
+                    price = oldProduct.Price;
+                }
+                
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductCount);
+                string strCount = Console.ReadLine();
+                bool isCorrectCountFormat = int.TryParse(strPrice, out int count);
+                if (isCorrectPriceFormat == false || string.IsNullOrWhiteSpace(strPrice))
+                {
+                    count = oldProduct.Count;
+                }
+
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductColor);
+                string color = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(color))
+                {
+                    color = oldProduct.Color;
+                }
+
+                await _service.UpdateAsync(id, new ProductEntity { Name = productName, Price = price, Count = count, Color = color });
             }
         }
     }

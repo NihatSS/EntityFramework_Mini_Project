@@ -24,6 +24,14 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto CategoryName;
             }
+            for (int i = 1; i < categoryName.Length; i++)
+            {
+                if (categoryName[i].ToString() != categoryName[i].ToString().ToLower())
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto CategoryName;
+                }
+            }
             var categories = _service.GetAllAsync();
             foreach (var category in await categories)
             {
@@ -216,5 +224,7 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} | Deleted date: {category.CreatedDate}");
             }
         }
+
+        
     }
 }
