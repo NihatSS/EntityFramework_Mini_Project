@@ -119,7 +119,14 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto CategoryName;
             }
-            _service.FilterByCategoryNameAsync(categoryName.ToLower());
+            var categories = await _service.FilterByCategoryNameAsync(categoryName.ToLower());
+            foreach (var category in categories)
+            {
+                foreach (var product in category.Products)
+                {
+                    ConsoleColor.Cyan.WriteConsole($"Products:\nName: {product.Name} | Price: {product.Price} | Count: {product.Count} | Color: {product.Color} | Description: {product.Description}");
+                }
+            }
         }
 
         public async Task GetAllWithCategoryId()

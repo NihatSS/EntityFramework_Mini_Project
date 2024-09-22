@@ -213,7 +213,7 @@ namespace Entity_Framework_Mini_Project.Controller
             var categories = await _service.GetArchiveCategoriesAsync();
             foreach (var category in categories)
             {
-                ConsoleColor.Cyan.WriteConsole($"{category.Id}. Category: {category.Name}");
+                ConsoleColor.Cyan.WriteConsole($"Category: {category.Name} | Deleted date: {category.CreatedDate}");
             }
         }
     }

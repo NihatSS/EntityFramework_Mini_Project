@@ -31,7 +31,7 @@ namespace Service.Services
             await _repository.UpdateAsync(id, entity);
         }
 
-        public async Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName)
+        public async Task<IEnumerable<CategoryEntitty>> FilterByCategoryNameAsync(string categoryName)
         {
             return await _repository.FilterByCategoryNameAsync(categoryName);
         }

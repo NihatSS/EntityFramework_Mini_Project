@@ -14,41 +14,41 @@ namespace Entity_Framework_Mini_Project.Menues
             UserController userController = new UserController();
             CategoryController categoryController = new CategoryController();
             ProductController productController = new ProductController();
-        //do
-        //{
-        //    bool isTrueAuthenticationFinised = true;
-        //    while (isTrueAuthenticationFinised)
-        //    {
-        //        ConsoleColor.Yellow.WriteConsole("Enter the operation!\n1-Login\n2-Register");
-        //        Authentication: string strNum = Console.ReadLine();
+            do
+            {
+                bool isTrueAuthenticationFinised = true;
+                while (isTrueAuthenticationFinised)
+                {
+                    ConsoleColor.Yellow.WriteConsole("Enter the operation!\n1-Login\n2-Register");
+                Authentication: string strNum = Console.ReadLine();
 
-        //        bool isCorrectFormat = int.TryParse(strNum, out int operation);
-        //        if (isCorrectFormat)
-        //        {
-        //            switch (operation)
-        //            {
-        //                case (int)UserOperations.Login:
-        //                    userController.Login();
-        //                    isTrueAuthenticationFinised = false;
-        //                    break;
-        //                case (int)UserOperations.Register:
-        //                    userController.Register();
-        //                    isTrueAuthenticationFinised = false;
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine(ErrorMessages.WrongInput);
+                    bool isCorrectFormat = int.TryParse(strNum, out int operation);
+                    if (isCorrectFormat)
+                    {
+                        switch (operation)
+                        {
+                            case (int)UserOperations.Login:
+                                userController.Login();
+                                isTrueAuthenticationFinised = false;
+                                break;
+                            case (int)UserOperations.Register:
+                                userController.Register();
+                                isTrueAuthenticationFinised = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine(ErrorMessages.WrongInput);
 
-        //            goto Authentication;
-        //        }
-        //    }
+                        goto Authentication;
+                    }
+                }
 
 
-        Methods: ConsoleColor.Yellow.WriteConsole("1-Get categry methods\n2-Get product methods");
+            Methods: ConsoleColor.Yellow.WriteConsole("1-Get categry methods\n2-Get product methods");
             string strOperation = Console.ReadLine();
             bool isCorretOperationFormat = int.TryParse(strOperation, out int opr);
             if (isCorretOperationFormat)
@@ -161,11 +161,11 @@ namespace Entity_Framework_Mini_Project.Menues
                 goto Methods;
             }
 
-            //} while (true);
+            } while (true);
 
 
-            //}
         }
     }
 }
+
 

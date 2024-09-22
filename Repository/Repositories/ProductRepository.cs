@@ -15,9 +15,9 @@ namespace Repository.Repositories
             _products = _context.Set<ProductEntity>();
         }
 
-        public async Task<IEnumerable<ProductEntity>> FilterByCategoryNameAsync(string categoryName)
+        public async Task<IEnumerable<CategoryEntitty>> FilterByCategoryNameAsync(string categoryName)
         {
-            return await _products.Include(m => m.Category).Where(m => m.Category.Name.ToLower().Contains(categoryName)).ToListAsync();
+            return await _context.Set<CategoryEntitty>().Include(m => m.Products).Where(m => m.Name.ToLower().Contains(categoryName)).ToListAsync();
         }
 
 
