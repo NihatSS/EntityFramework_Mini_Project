@@ -125,7 +125,7 @@ namespace Entity_Framework_Mini_Project.Menues
                                             productController.GetById();
                                             break;
                                         case (int)ProductMethods.GetAllWithCategoryId:
-                                            productController.GetAllWithCategoryId();
+                                            productController.GetAllByCategoryId();
                                             break;
                                         case (int)ProductMethods.FilterByCategoryName:
                                             productController.FilterByCategoryName();

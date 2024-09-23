@@ -147,13 +147,21 @@ namespace Entity_Framework_Mini_Project.Controller
             }
         }
 
-        public async Task GetAllWithCategoryId()
+        public async Task GetAllByCategoryId()
         {
-            var products = await _service.GetAllWithCategoryIdAsync();
-            foreach (var product in products)
+            ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
+            string strId = Console.ReadLine();
+            bool isCorrectIdFormat = int.TryParse(strId, out int categoryId);
+            if (isCorrectIdFormat)
             {
-                ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description} || CategoryId:{product.CategoryId}");
+                var products = await _service.GetAllByCategoryIdAsync(categoryId);
+                foreach (var product in products)
+                {
+                    ConsoleColor.Cyan.WriteConsole($"Name: {product.Name} || Price: {product.Price} || Count:  {product.Count} || Color: {product.Color} || Description: {product.Description} || CategoryId:{product.CategoryId}");
+                }
             }
+
+            
         }
 
         public async Task GetById()

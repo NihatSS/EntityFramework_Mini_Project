@@ -21,9 +21,9 @@ namespace Repository.Repositories
         }
 
 
-        public async Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync()
+        public async Task<IEnumerable<ProductEntity>> GetAllByCategoryIdAsync(int id)
         {
-            return await _products.Include(m => m.Category).ToListAsync();
+            return await _products.Include(m => m.Category).Where(m => m.CategoryId == id).ToListAsync();
         }
 
         public async Task<IEnumerable<ProductEntity>> SearchByColorAsync(string color)

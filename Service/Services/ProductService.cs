@@ -53,9 +53,9 @@ namespace Service.Services
         }
 
 
-        public async Task<IEnumerable<ProductEntity>> GetAllWithCategoryIdAsync()
+        public async Task<IEnumerable<ProductEntity>> GetAllByCategoryIdAsync(int id)
         {
-            return await _repository.GetAllWithCategoryIdAsync();
+            return await _repository.GetAllByCategoryIdAsync(id);
         }
 
         public async Task<ProductEntity> GetByIdAsync(int id)
