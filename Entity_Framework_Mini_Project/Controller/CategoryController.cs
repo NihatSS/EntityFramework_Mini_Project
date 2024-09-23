@@ -50,40 +50,50 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Delete()
         {
-            //GetAll();
-            Id: Console.WriteLine(AskMessages.AskCategoryId);
+            GetAll();
+            Console.WriteLine(AskMessages.AskCategoryId);
+
             string categoryId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(categoryId, out int id);
+
             if (isCorrectFormat)
             {
                 ConsoleColor.DarkYellow.WriteConsole(AskMessages.AskPermissionToDelete);
-                Permission: string permission = Console.ReadLine();
+
+                string permission = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(permission))
                 {
                     ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                    goto Permission;
+                    return;
                 }
-                switch (permission)
+
+                try
                 {
-                    case "y":
-                       _service.DeleteAsync(id);
-                       ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
-                        break;
-                    case "n":
-                        ConsoleColor.DarkGreen.WriteConsole("Delete canceled");
-                        break;
-                    default:
-                        ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                        goto Permission;
+                    switch (permission.ToLower())
+                    {
+                        case "y":
+                            await _service.DeleteAsync(id);
+                            ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
+                            break;
+                        case "n":
+                            ConsoleColor.DarkGreen.WriteConsole("Delete canceled");
+                            break;
+                        default:
+                            ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                            break;
+                    }
                 }
-                
+                catch (Exception ex)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.NoData);
+                }
             }
             else
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
-                goto Id;
             }
         }
+
 
         public async Task GetAll()
         {
@@ -144,7 +154,7 @@ namespace Entity_Framework_Mini_Project.Controller
                     ConsoleColor.Cyan.WriteConsole($"Category: {category.Name}");
                 }catch (Exception ex)
                 {
-                    ConsoleColor.Red.WriteConsole(ex.Message + ", Please try again:");
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.NoData + " Please try again:");
                     goto Id;
                 }
             }

@@ -27,10 +27,12 @@ namespace Repository.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var response = _dbSet.FirstOrDefault(m => m.Id == id);
-            _dbSet.Remove(response);
-            _context.SaveChanges();
+            var entity = await _dbSet.FirstOrDefaultAsync(m => m.Id == id);
+         
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
+
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
