@@ -5,6 +5,7 @@
         GetAll = 1,
         Create,
         Delete,
+        Update,
         GetById,
         GetAllWithCategoryId,
         FilterByCategoryName,

@@ -118,6 +118,9 @@ namespace Entity_Framework_Mini_Project.Menues
                                         case (int)ProductMethods.Delete:
                                             productController.Delete();
                                             break;
+                                        case (int)ProductMethods.Update:
+                                            productController.Update();
+                                            break;
                                         case (int)ProductMethods.GetById:
                                             productController.GetById();
                                             break;

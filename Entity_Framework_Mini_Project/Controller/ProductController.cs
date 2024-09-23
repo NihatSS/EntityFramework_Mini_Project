@@ -4,16 +4,19 @@ using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Service.Services;
 using Service.Services.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Entity_Framework_Mini_Project.Controller
 {
     public class ProductController
     {
         private readonly IProductService _service;
+        private readonly ICategoryService _categoryService;
 
         public ProductController()
         {
             _service = new ProductService();
+            _categoryService = new CategoryService();
         }
 
         public async Task GetAll()
@@ -27,6 +30,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Create()
         {
+            string symbols = @"^[\p{L}\p{M}' \.\-]+$";
             var products = await _service.GetAllAsync();
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
             ProductName: string productName = Console.ReadLine().Trim();
@@ -60,6 +64,11 @@ namespace Entity_Framework_Mini_Project.Controller
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Price;
             }
+            if (price < 0)
+            {
+                ConsoleColor.Red.WriteConsole("The price can't be minus! Please enter again:");
+                goto Price;
+            }
 
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductCount);
             string strCount = Console.ReadLine();
@@ -71,7 +80,7 @@ namespace Entity_Framework_Mini_Project.Controller
 
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductColor);
             Color: string color = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(color))
+            if (string.IsNullOrWhiteSpace(color) || !Regex.IsMatch(color,symbols))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto Color;
@@ -269,44 +278,84 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Update()
         {
+            var products = _service.GetAllAsync();
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductId);
-            string strId = Console.ReadLine();
+            Id: string strId = Console.ReadLine();
             bool isCorrectIdFormat = int.TryParse(strId, out int id);
             if (isCorrectIdFormat)
             {
-                var oldProduct = await _service.GetByIdAsync(id);
+                var response = await _service.GetByIdAsync(id);
+                if (response == null)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.NoData + " Please try again:");
+                    goto Id;
+                }
+
+                string symbols = @"^[\p{L}\p{M}' \.\-]+$";
 
                 ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductName);
-                string productName = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(productName))
+                Name: string productName = Console.ReadLine();
+                if (!Regex.IsMatch(productName,symbols))
                 {
-                    productName = oldProduct.Name;
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Name;
                 }
 
+
+
                 ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductPrice);
-                string strPrice = Console.ReadLine();
+                Price: string strPrice = Console.ReadLine();
                 bool isCorrectPriceFormat = decimal.TryParse(strPrice, out decimal price);
-                if (isCorrectPriceFormat == false || string.IsNullOrWhiteSpace(strPrice))
+                if (isCorrectPriceFormat == false)
                 {
-                    price = oldProduct.Price;
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Price;
                 }
-                
-                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductCount);
-                string strCount = Console.ReadLine();
-                bool isCorrectCountFormat = int.TryParse(strPrice, out int count);
-                if (isCorrectPriceFormat == false || string.IsNullOrWhiteSpace(strPrice))
+                if (price<0)
                 {
-                    count = oldProduct.Count;
+                    ConsoleColor.Red.WriteConsole("Price can't be minus! Please enter again:");
+                    goto Price;
+                }
+
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductCount);
+                Count: string strCount = Console.ReadLine();
+                bool isCorrectCountFormat = int.TryParse(strPrice, out int count);
+                if (isCorrectPriceFormat == false)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Count;
+                }
+
+
+                ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
+                CategoryId: string strCategoryId = Console.ReadLine();
+                bool isCorrectCategoryIdFormat = int.TryParse(strCategoryId, out int categoryId);
+                if (string.IsNullOrEmpty(strCategoryId))
+                {
+                    categoryId = response.CategoryId;
+                }
+                if (isCorrectCategoryIdFormat == false)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto CategoryId;
+                }
+                var category = await _categoryService.GetByIdAsync(categoryId);
+                if (category == null)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.NoData);
+                    goto CategoryId;
                 }
 
                 ConsoleColor.Yellow.WriteConsole(AskMessages.AskProductColor);
-                string color = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(color))
+                Color: string color = Console.ReadLine();
+                if (!Regex.IsMatch(color, symbols) || !color.Any(char.IsLetter))
                 {
-                    color = oldProduct.Color;
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                    goto Color;
                 }
 
                 await _service.UpdateAsync(id, new ProductEntity { Name = productName, Price = price, Count = count, Color = color });
+                ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessfullOperation);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Entity_Framework_Mini_Project.Helper.Exceptions;
 using Repository.Repositories;
 using Repository.Repositories.Interfaces;
 using Service.Services.Interfaces;
@@ -26,9 +27,24 @@ namespace Service.Services
         {
             await _repository.DeleteAsync(id);
         }
-        public async Task UpdateAsync(int id, ProductEntity entity)
+        public async Task UpdateAsync(int id, ProductEntity product)
         {
-            await _repository.UpdateAsync(id, entity);
+            var existCategory = await _repository.GetByIdAsync(id) ?? throw new NotFoundException("Data not found");
+
+            if (string.IsNullOrEmpty(product.Name.Trim()))
+            {
+                product.Name = existCategory.Name;
+                product.Description = existCategory.Description;
+                product.Color = existCategory.Color;
+                await _repository.UpdateAsync(existCategory);
+            }
+            else
+            {
+                existCategory.Name = product.Name;
+                existCategory.Description = product.Description;
+                existCategory.Color = product.Color;
+                await _repository.UpdateAsync(existCategory);
+            }
         }
 
         public async Task<IEnumerable<CategoryEntitty>> FilterByCategoryNameAsync(string categoryName)

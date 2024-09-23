@@ -4,6 +4,7 @@ using Entity_Framework_Mini_Project.Helper.Extentions;
 using Entity_Framework_Mini_Project.Helpers.Constants;
 using Service.Services;
 using Service.Services.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Entity_Framework_Mini_Project.Controller
 {
@@ -17,9 +18,10 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Create()
         {
+            string symbols = @"^[\p{L}\p{M}' \.\-]+$";
             Console.WriteLine(AskMessages.AskCategoryName);
             CategoryName: string categoryName = Console.ReadLine().Trim();
-            if (string.IsNullOrWhiteSpace(categoryName) || categoryName.Any(char.IsDigit) || !categoryName.Any(char.IsLetterOrDigit))
+            if (string.IsNullOrWhiteSpace(categoryName) || !Regex.IsMatch(categoryName,symbols) || !categoryName.Any(char.IsLetterOrDigit))
             {
                 ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                 goto CategoryName;
@@ -107,37 +109,44 @@ namespace Entity_Framework_Mini_Project.Controller
 
         public async Task Update()
         {
+            string symbols = @"^[\p{L}\p{M}' \.\-]+$";
             GetAll();
             var categories = await _service.GetAllAsync();
             ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryId);
-            string strId = Console.ReadLine();
+            Id: string strId = Console.ReadLine();
             bool isCorrectFormat = int.TryParse(strId, out int id);
             if (isCorrectFormat)
             {
-                var oldUser = await _service.GetByIdAsync(id);
+                var oldCategory = await _service.GetByIdAsync(id);
+                if (oldCategory == null)
+                {
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.NoData + " Please try again:");
+                    goto Id;
+                }
                 ConsoleColor.Yellow.WriteConsole(AskMessages.AskCategoryName);
                 Name: string categoryName = Console.ReadLine().Trim();
 
-                bool isCategoryExist = true;
                 foreach (var category in categories)
                 {
-                    if (category.Name != categoryName)
+                    if (category.Name == categoryName)
                     {
-                        isCategoryExist = false;
+                        ConsoleColor.Red.WriteConsole(ErrorMessages.CategoryAlreadyExist);
+                        goto Name;
                     }
                 }
-                if (isCategoryExist)
+                if (!Regex.IsMatch(categoryName, symbols) || !categoryName.Any(char.IsLetterOrDigit))
                 {
-                    ConsoleColor.Red.WriteConsole(ErrorMessages.CategoryAlreadyExist);
+                    ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
                     goto Name;
                 }
-                if (string.IsNullOrWhiteSpace(categoryName))
-                {
-                    categoryName = oldUser.Name;
-                }
-                
+
                 _service.UpdateAsync(id, new CategoryEntitty { Name = categoryName });
                 ConsoleColor.Green.WriteConsole(SuccessfullMessages.SuccessFullUpdate);
+            }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ErrorMessages.WrongInput);
+                goto Id;
             }
         }
 

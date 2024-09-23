@@ -54,9 +54,21 @@ namespace Service.Services
             await _repository.DeleteAsync(id);
         }
 
-        public async Task UpdateAsync(int id, CategoryEntitty entity)
+        public async Task UpdateAsync(int id, CategoryEntitty category)
         {
-            await _repository.UpdateAsync(id, entity);
+            var existCategory = await _repository.GetByIdAsync(id);
+
+            if (string.IsNullOrEmpty(category.Name.Trim()))
+            {
+                category.Name = existCategory.Name;
+                await _repository.UpdateAsync(existCategory);
+            }
+            else
+            {
+                existCategory.Name = category.Name;
+                await _repository.UpdateAsync(existCategory);
+            }
+
         }
 
         public async Task<IEnumerable<ArchiveCategoryEntity>> GetArchiveCategoriesAsync()
